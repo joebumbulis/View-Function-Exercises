@@ -17,7 +17,7 @@ const url = "http://tiny-za-server.herokuapp.com/collections/joebumMVC/";
   let html = $(`
     <section>
       <aside class="left-side"><ul class="posts-list"></ul></aside>
-      <article class="right-side"><h2 class="title"></h2><p class="body"></p></article>
+      <article class="right-side"><ul class="title"></ul><ul class="body"></ul></article>
     </section>
      `)
 //
@@ -25,38 +25,32 @@ $.ajax({
     type: 'GET',
     dataType: 'json',
     url: url
-}).then(function(data, status, xhr){
+}).then((data, status, xhr) => {
   console.log(status);
   data.forEach((post, i, arr) => {
-    let listItem = $(`<li>${post.title}</li>`);
-    console.log(listItem);
-    $(html).find('.posts-list').append(listItem)
-  })
+
+    let listItem = $(`<li><a href="#${post._id}">${post.title}</a></li>`);
+    let link = listItem.find('a')
+    link.on('click', (e) =>{
+    
+        console.log(e.target)
+        $.ajax({
+          type: 'GET',
+          dataType: 'json',
+          url: url + `${post._id}`
+        }).then((post, status, xhr) => {
+          // $(html).find('.title').replaceWith();
+          // $(html).find('.body').replaceWith();
+            let title = $(`<li>${post.title}</li>`);
+            let body = $(`<li>${post.body}</li> `)
+            $(html).find('.title').append(title)
+            $(html).find('.body').append(body)
+          })
+        })
+        $(html).find('.posts-list').append(listItem)
+    })
 })
 
-// $(html).find('li').on('click', (e) => {
-// // console.log(e);
-// }
-//   let firstName = $(html).find('.first').val();
-//   let lastName = $(html).find('.last').val();
-//   let address = $(html).find('.address').val();
-//   let phoneNumber = $(html).find('.number').val();
-//   $.ajax({
-//     type: 'POST',
-//     contentType: 'application/json',
-//     url: url,
-//     data: JSON.stringify ({
-//       first: firstName,
-//       last: lastName,
-//       address: address,
-//       phone: phoneNumber
-//     })
-//   }).then(function(data, status, xhr){
-//     let greeting = $(`<p>Hello ${data.first} ${data.last}!</p> `);
-//     $(html).find('.output').append(greeting)
-//   })
-// });
-// // return html;
 
   //Example of the most minimal view possible.
   let defaultView = `<h1>Hello World!</h1>`

@@ -15,11 +15,31 @@ html {
     }
 }
 
+.title {
+  text-decoration: underline;
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
 .left-side {
   float: left;
+  margin-top: 5rem;
+  height: 50%;
+  width: 33%;
+  background: #fff;
+}
 
+.posts-list {
+  // list-style: none;
+  margin-right: 2rem;
+  text-transform: uppercase;
 }
 
 .right-side {
-  float: right;
+  float: left;
+  margin-top: 5rem;
+  width: 66%;
+  * {
+    list-style: none;
+  }
 }
