@@ -32,20 +32,19 @@ $.ajax({
     let listItem = $(`<li><a href="#${post._id}">${post.title}</a></li>`);
     let link = listItem.find('a')
     link.on('click', (e) =>{
-    
         console.log(e.target)
-        $.ajax({
-          type: 'GET',
-          dataType: 'json',
-          url: url + `${post._id}`
-        }).then((post, status, xhr) => {
+        // $.ajax({
+        //   type: 'GET',
+        //   dataType: 'json',
+        //   url: url + `${post._id}`
+        // }).then((post, status, xhr) => {
           // $(html).find('.title').replaceWith();
           // $(html).find('.body').replaceWith();
             let title = $(`<li>${post.title}</li>`);
             let body = $(`<li>${post.body}</li> `)
-            $(html).find('.title').append(title)
-            $(html).find('.body').append(body)
-          })
+            $(html).find('.title').html(title)
+            $(html).find('.body').html(body)
+          // })
         })
         $(html).find('.posts-list').append(listItem)
     })
